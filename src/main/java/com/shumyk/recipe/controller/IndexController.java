@@ -1,10 +1,14 @@
 package com.shumyk.recipe.controller;
 
 import com.shumyk.recipe.domain.Category;
+import com.shumyk.recipe.domain.Recipe;
 import com.shumyk.recipe.domain.UnitOfMeasure;
 import com.shumyk.recipe.repository.CategoryRepository;
+import com.shumyk.recipe.repository.RecipeRepository;
 import com.shumyk.recipe.repository.UnitOfMeasureRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
@@ -14,10 +18,12 @@ public class IndexController {
 
     private CategoryRepository categoryRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
+    private RecipeRepository recipeRepository;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeRepository recipeRepository) {
         this.categoryRepository = categoryRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     @RequestMapping({"", "/", "/index"})
@@ -29,5 +35,13 @@ public class IndexController {
         System.out.println("UOM Id is: " + unitOfMeasureOptional.get().getId());
 
         return "index";
+    }
+
+    @GetMapping("/guacamole") public String getGuacamoleRecipe(final Model model) {
+        final Recipe guacamoleRecipe = recipeRepository.findByDescription("Perfect Guacamole Recipe").get();
+
+        model.addAttribute("recipe", guacamoleRecipe);
+
+        return "guacamole";
     }
 }
