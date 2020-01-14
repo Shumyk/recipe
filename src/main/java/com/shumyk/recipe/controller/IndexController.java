@@ -9,6 +9,7 @@ import com.shumyk.recipe.repository.UnitOfMeasureRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
@@ -37,11 +38,11 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/guacamole") public String getGuacamoleRecipe(final Model model) {
-        final Recipe guacamoleRecipe = recipeRepository.findByDescription("Perfect Guacamole Recipe").get();
+    @GetMapping("/recipe/{id}") public String getGuacamoleRecipe(@PathVariable final Long id, final Model model) {
+        final Recipe guacamoleRecipe = recipeRepository.findById(id).get();
 
         model.addAttribute("recipe", guacamoleRecipe);
 
-        return "guacamole";
+        return "recipe";
     }
 }
