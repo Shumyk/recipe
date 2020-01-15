@@ -7,7 +7,9 @@
 <body>
     <h2 th:text="${recipe.getDescription()}">Recipe</h2>
     <hr/>
-    <p>Preparation time <span th:text="${recipe.getPrepTime()}"></span> minutes</p>
+    <p>Preparation time: <span th:text="${recipe.getPrepTime()}"></span> minutes
+        <span th:if="${recipe.getCookTime() != null}" style="margin-left: 20px;">Cook time: <span th:text="${recipe.getCookTime()}"></span> minutes</span>
+    </p>
     <hr/>
     <p th:text="${recipe.getNotes().getRecipeNotes()}"></p>
 
