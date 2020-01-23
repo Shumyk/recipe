@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ public class DataLoader implements CommandLineRunner {
 	private final IngredientRepository ingredientRepository;
 
 	@Override
+	@Transactional
 	public void run(String... args) {
 		final UnitOfMeasure uomPiece = unitOfMeasureRepository.findByDescription("Piece").orElse(new UnitOfMeasure());
 		final UnitOfMeasure uomTeaspoon = unitOfMeasureRepository.findByDescription("Teaspoon").orElse(new UnitOfMeasure());
