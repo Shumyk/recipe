@@ -2,6 +2,8 @@ package com.shumyk.recipe.bootstrap;
 
 import com.shumyk.recipe.domain.*;
 import com.shumyk.recipe.repository.*;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,8 @@ import java.math.BigDecimal;
 import static java.util.Collections.singleton;
 import static org.hibernate.validator.internal.util.CollectionHelper.asSet;
 
+@Slf4j
+@AllArgsConstructor
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -21,16 +25,6 @@ public class DataLoader implements CommandLineRunner {
 	private final RecipeRepository recipeRepository;
 	private final UnitOfMeasureRepository unitOfMeasureRepository;
 	private final IngredientRepository ingredientRepository;
-
-	public DataLoader(final CategoryRepository categoryRepository, final NotesRepository notesRepository,
-										final RecipeRepository recipeRepository, final UnitOfMeasureRepository unitOfMeasureRepository,
-										final IngredientRepository ingredientRepository) {
-		this.categoryRepository = categoryRepository;
-		this.notesRepository = notesRepository;
-		this.recipeRepository = recipeRepository;
-		this.unitOfMeasureRepository = unitOfMeasureRepository;
-		this.ingredientRepository = ingredientRepository;
-	}
 
 	@Override
 	public void run(String... args) {
@@ -42,6 +36,8 @@ public class DataLoader implements CommandLineRunner {
 
 		loadGuacamoleRecipe(uomDash, uomPiece, uomTablespoon, uomTeaspoon);
 		loadGrilledChicken(uomPiece, uomTablespoon, uomTeaspoon, uomClove);
+
+		log.info("Data loaded on startup.");
 	}
 
 	private void loadGuacamoleRecipe(UnitOfMeasure uomDash, UnitOfMeasure uomPiece,
@@ -160,3 +156,4 @@ public class DataLoader implements CommandLineRunner {
 		return image;
 	}
 }
+
