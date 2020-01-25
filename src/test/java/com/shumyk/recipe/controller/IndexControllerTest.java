@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import java.util.HashSet;
@@ -15,6 +17,9 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 public class IndexControllerTest {
 
@@ -32,8 +37,15 @@ public class IndexControllerTest {
 		indexController = new IndexController(recipeService);
 	}
 
-	@Test
-	public void getIndexPage() {
+	@Test public void testMockMvc() throws Exception {
+		final MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+
+		mockMvc.perform(get("/"))
+				.andExpect(status().isOk())
+				.andExpect(view().name(INDEX));
+	}
+
+	@Test public void getIndexPage() {
 		// given
 		final Set<Recipe> recipes = new HashSet<>();
 		recipes.add(new Recipe());
@@ -56,8 +68,7 @@ public class IndexControllerTest {
 		assertEquals(3, setInController.size());
 	}
 
-	@Test
-	public void getRecipe() {
+	@Test	public void getRecipe() {
 		final Long id = 148L;
 		final Optional<Recipe> recipe = Optional.of(new Recipe());
 
