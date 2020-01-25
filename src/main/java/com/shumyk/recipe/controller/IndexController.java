@@ -25,7 +25,7 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/recipe/{id}") public String getGuacamoleRecipe(@PathVariable final Long id, final Model model) {
+    @GetMapping("/recipe/{id}") public String getRecipe(@PathVariable final Long id, final Model model) {
         final Recipe guacamoleRecipe = recipeService.getRecipeById(id)
                 .orElse(new Recipe());
         model.addAttribute("recipe", guacamoleRecipe);
