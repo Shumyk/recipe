@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class IndexControllerTest {
 
 	public static final String INDEX = "index";
-	public static final String RECIPE = "recipe";
 	public static final String RECIPES = "recipes";
 
 	private IndexController indexController;
@@ -66,17 +65,5 @@ public class IndexControllerTest {
 
 		final Set<Recipe> setInController = setArgumentCaptor.getValue();
 		assertEquals(3, setInController.size());
-	}
-
-	@Test	public void getRecipe() {
-		final Long id = 148L;
-		final Optional<Recipe> recipe = Optional.of(new Recipe());
-
-		when(recipeService.getRecipeById(id)).thenReturn(recipe);
-
-		assertEquals(RECIPE, indexController.getRecipe(id, model));
-
-		verify(recipeService, times(1)).getRecipeById(id);
-		verify(model, times(1)).addAttribute(RECIPE, recipe.get());
 	}
 }

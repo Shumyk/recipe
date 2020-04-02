@@ -3,7 +3,6 @@ package com.shumyk.recipe.controller;
 import com.shumyk.recipe.domain.Recipe;
 import com.shumyk.recipe.service.RecipeService;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Slf4j
 @Controller
 @AllArgsConstructor
-public class IndexController {
+public class RecipeController {
 
-    @NonNull private final RecipeService recipeService;
+	private final RecipeService recipeService;
 
-    @GetMapping({"", "/", "/index"})
-    public String getIndexPage(final Model model) {
-        log.info("Generating Index page.");
+	@GetMapping("/recipe/{id}") public String getRecipe(@PathVariable final Long id, final Model model) {
+		final Recipe recipe = recipeService.getRecipeById(id).orElse(new Recipe());
+		model.addAttribute("recipe", recipe);
 
-        model.addAttribute("recipes", recipeService.getRecipes());
-        return "index";
-    }
+		log.info("Returning recipe page for {} recipe.", recipe.getDescription());
+		return "recipe";
+	}
 }
