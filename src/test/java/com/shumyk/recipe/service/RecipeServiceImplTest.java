@@ -1,5 +1,6 @@
 package com.shumyk.recipe.service;
 
+import com.shumyk.recipe.converter.*;
 import com.shumyk.recipe.domain.Recipe;
 import com.shumyk.recipe.repository.RecipeRepository;
 import org.junit.Before;
@@ -22,7 +23,19 @@ public class RecipeServiceImplTest {
 	@Before public void setUp() {
 		MockitoAnnotations.initMocks(this);
 
-		recipeService = new RecipeServiceImpl(recipeRepository);
+		recipeService = new RecipeServiceImpl(
+			recipeRepository,
+			new RecipeCommandToRecipe(
+				new CategoryCommandToCategory(),
+				new NotesCommandToNotes(),
+				new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure())
+			),
+			new RecipeToRecipeCommand(
+				new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand()),
+				new NotesToNotesCommand(),
+				new CategoryToCategoryCommand()
+			)
+		);
 	}
 
 	@Test
