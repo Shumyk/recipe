@@ -6,12 +6,12 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          crossorigin="anonymous" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
 
     <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </head>
 <body>
@@ -30,23 +30,29 @@
                                 <th>ID</th>
                                 <th>Description</th>
                                 <th>View</th>
+                                <th>Update</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
                                 <td>777</td>
                                 <td>Tasty Dumplings</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td>778</td>
                                 <td>Not Tasty Dumplings</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">666</td>
                                 <td th:text="${recipe.description}">Tasty Waffles</td>
                                 <td>
-                                    <a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">View</a>
+                                    <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/show'}">View</a>
+                                </td>
+                                <td>
+                                    <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">Update</a>
                                 </td>
                             </tr>
                         </table>
