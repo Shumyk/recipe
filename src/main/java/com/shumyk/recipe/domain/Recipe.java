@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -30,7 +31,7 @@ public class Recipe {
     private String directions;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob
     private byte[] image;
@@ -48,5 +49,11 @@ public class Recipe {
     )
     private Set<Category> categories;
 
+
+    public Recipe addIngredient(final Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
+    }
 }
 

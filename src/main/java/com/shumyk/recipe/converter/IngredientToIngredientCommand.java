@@ -26,6 +26,7 @@ public class IngredientToIngredientCommand implements Converter<Ingredient, Ingr
 
 		return IngredientCommand.of(
 			source.getId(),
+			isNull(source.getRecipe()) ? null : source.getRecipe().getId(),
 			source.getDescription(),
 			source.getAmount(),
 			unitOfMeasureToCommand.convert(source.getUom())

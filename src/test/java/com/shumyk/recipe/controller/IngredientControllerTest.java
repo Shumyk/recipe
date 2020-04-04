@@ -1,6 +1,8 @@
 package com.shumyk.recipe.controller;
 
+import com.shumyk.recipe.command.IngredientCommand;
 import com.shumyk.recipe.command.RecipeCommand;
+import com.shumyk.recipe.service.IngredientService;
 import com.shumyk.recipe.service.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class IngredientControllerTest {
 
+	@Mock IngredientService ingredientService;
 	@Mock RecipeService recipeService;
 	IngredientController controller;
 	MockMvc mockMvc;
@@ -24,7 +27,7 @@ public class IngredientControllerTest {
 	@Before public void setUp() {
 		MockitoAnnotations.initMocks(this);
 
-		controller = new IngredientController(recipeService);
+		controller = new IngredientController(recipeService, ingredientService);
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
@@ -41,5 +44,16 @@ public class IngredientControllerTest {
 
 		// then
 		verify(recipeService).findCommandById(4L);
+	}
+
+	@Test public void testShowIngredient() throws Exception {
+		IngredientCommand command = new IngredientCommand();
+
+		doReturn(command).when(ingredientService).findByRecipeIdAndIngredientId(anyLong(), anyLong());
+
+		mockMvc.perform(get("/recipe/1/ingredient/2/show"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("recipe/ingredient/show"))
+			.andExpect(model().attributeExists("ingredient"));
 	}
 }

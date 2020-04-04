@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor(staticName = "of")
 public class IngredientCommand {
 	private Long id;
+	private Long recipeId;
 	private String description;
 	private BigDecimal amount;
 	private UnitOfMeasureCommand uom;
