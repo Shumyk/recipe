@@ -83,4 +83,22 @@ public class IngredientServiceImplTest {
 		verify(recipeRepository).findById(anyLong());
 		verify(recipeRepository).save(any(Recipe.class));
 	}
+
+	@Test public void testDeleteById() {
+		// given
+		Recipe recipe = new Recipe();
+		Ingredient ingredient = new Ingredient();
+		ingredient.setId(3L);
+		recipe.addIngredient(ingredient);
+		ingredient.setRecipe(recipe);
+
+		doReturn(Optional.of(recipe)).when(recipeRepository).findById(anyLong());
+
+		// when
+		ingredientService.deleteIngredientById(1L, 3L);
+
+		// then
+		verify(recipeRepository).findById(1L);
+		verify(recipeRepository).save(recipe);
+	}
 }
