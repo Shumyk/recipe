@@ -1,6 +1,8 @@
 package com.shumyk.recipe.controller;
 
 import com.shumyk.recipe.command.IngredientCommand;
+import com.shumyk.recipe.command.RecipeCommand;
+import com.shumyk.recipe.command.UnitOfMeasureCommand;
 import com.shumyk.recipe.service.IngredientService;
 import com.shumyk.recipe.service.RecipeService;
 import com.shumyk.recipe.service.UnitOfMeasureService;
@@ -33,6 +35,25 @@ public class IngredientController {
 	public String showRecipeIngredient(@PathVariable final Long recipeId, @PathVariable final Long id, final Model model) {
 		model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, id));
 		return "recipe/ingredient/show";
+	}
+
+	@GetMapping("recipe/{recipeId}/ingredient/new")
+	public String newRecipe(@PathVariable final Long recipeId, final Model model) {
+		// make sure we have a good id value
+		final RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
+		// TODO raise exception if null
+
+		// need to return back parent id for hidden form property
+		final IngredientCommand ingredientCommand = new IngredientCommand();
+		ingredientCommand.setRecipeId(recipeId);
+		model.addAttribute("ingredient", ingredientCommand);
+
+		// init uom
+		ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+		model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+		return "recipe/ingredient/ingredientForm";
 	}
 
 	@GetMapping("recipe/{recipeId}/ingredient/{id}/update")
