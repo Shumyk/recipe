@@ -63,7 +63,7 @@ public class DataLoader implements CommandLineRunner {
 		guacamoleRecipe.setNotes(guacamoleNote);
 		guacamoleRecipe.setPrepTime(10);
 		guacamoleRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
-		guacamoleRecipe.setImage(getImage("images/Guacamole.jpg"));
+		guacamoleRecipe.setImage(getImage("static/images/Guacamole.jpg"));
 		guacamoleRecipe.setCategories(singleton(getCategory("Mexican")));
 		guacamoleRecipe.setDifficulty(Difficulty.MODERATE);
 		guacamoleRecipe.setIngredients(asSet(ripeAvocado, salt, limeJuice, redOnion, chiles, cilantro, blackPepper, ripeTomato, redRadishes, tortillaChips));
@@ -111,7 +111,7 @@ public class DataLoader implements CommandLineRunner {
 		grilledChickenRecipe.setPrepTime(20);
 		grilledChickenRecipe.setCookTime(15);
 		grilledChickenRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
-		grilledChickenRecipe.setImage(getImage("images/grilledChicken.jpg"));
+		grilledChickenRecipe.setImage(getImage("static/images/grilledChicken.jpg"));
 		grilledChickenRecipe.setCategories(asSet(getCategory("Mexican"), getCategory("Dinner"), getCategory("Grill"), getCategory("Chicken"), getCategory("Quick and easy")));
 		grilledChickenRecipe.setDifficulty(Difficulty.HARD);
 		grilledChickenRecipe.setIngredients(asSet(chiliPowder, oregano, driedCumin, sugar, salt, garlic, orangeZest, orangeJuice, oliveOil, chickenThighs));
