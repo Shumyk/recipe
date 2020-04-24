@@ -4,6 +4,7 @@ import com.shumyk.recipe.command.RecipeCommand;
 import com.shumyk.recipe.converter.RecipeCommandToRecipe;
 import com.shumyk.recipe.converter.RecipeToRecipeCommand;
 import com.shumyk.recipe.domain.Recipe;
+import com.shumyk.recipe.exception.NotFoundException;
 import com.shumyk.recipe.repository.RecipeRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public Recipe getRecipeById(final Long id) {
 		return recipeRepository.findById(id)
-			.orElseThrow(() -> new RuntimeException("Recipe Not Found, id = " + id));
+			.orElseThrow(() -> new NotFoundException("Recipe Not Found, id = " + id));
 	}
 
 	@Override

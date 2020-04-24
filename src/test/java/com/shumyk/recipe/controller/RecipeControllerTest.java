@@ -2,6 +2,7 @@ package com.shumyk.recipe.controller;
 
 import com.shumyk.recipe.command.RecipeCommand;
 import com.shumyk.recipe.domain.Recipe;
+import com.shumyk.recipe.exception.NotFoundException;
 import com.shumyk.recipe.service.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,13 @@ public class RecipeControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(view().name("recipe/show"))
 			.andExpect(model().attributeExists("recipe"));
+	}
+
+	@Test public void testGetRecipeNotFound() throws Exception {
+		when(recipeService.getRecipeById(1L)).thenThrow(NotFoundException.class);
+
+		mockMvc.perform(get("/recipe/1/show"))
+			.andExpect(status().isNotFound());
 	}
 
 	@Test public void getRecipe() {

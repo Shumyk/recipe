@@ -2,6 +2,7 @@ package com.shumyk.recipe.service;
 
 import com.shumyk.recipe.converter.*;
 import com.shumyk.recipe.domain.Recipe;
+import com.shumyk.recipe.exception.NotFoundException;
 import com.shumyk.recipe.repository.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -61,5 +63,12 @@ public class RecipeServiceImplTest {
 
 		// then
 		verify(recipeRepository).deleteById(idToDelete);
+	}
+
+	@Test(expected = NotFoundException.class) public void getRecipeByIdNotFound() {
+		Optional<Recipe> recipeOptional = Optional.empty();
+		when(recipeRepository.findById(1L)).thenReturn(recipeOptional);
+
+		recipeService.getRecipeById(1L); // should go boom
 	}
 }
