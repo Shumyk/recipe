@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <jaxb.version>2.3.0</jaxb.version>
     </properties>
 
     <dependencies>
@@ -48,9 +49,19 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>2.3.0</version>
+            <version>${jaxb.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -74,7 +85,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.22.0</version>
                 <configuration>
                     <includes>
                         <include>**/*IT.java</include>
@@ -83,6 +94,7 @@
                         <additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>
                     </additionalClasspathElements>
                     <parallel>none</parallel>
+                    <argLine>--illegal-access=permit</argLine>
                 </configuration>
                 <executions>
                     <execution>
@@ -97,8 +109,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
