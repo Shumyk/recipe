@@ -5,6 +5,7 @@ import com.shumyk.recipe.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import static org.hibernate.validator.internal.util.CollectionHelper.asSet;
 @Slf4j
 @AllArgsConstructor
 @Component
+@Profile("default")
 public class DataLoader implements CommandLineRunner {
 
 	private final CategoryRepository categoryRepository;
