@@ -2,3 +2,4 @@
 [![codecov](https://codecov.io/gh/Shumyk/recipe/branch/master/graph/badge.svg)](https://codecov.io/gh/Shumyk/recipe)
 
 Recipe application.
+Spring Web Application for managing information related to Recipes, its Ingridients etc. 
